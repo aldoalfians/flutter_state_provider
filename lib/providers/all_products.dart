@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_provider_state/models/product.dart';
+import 'package:flutter_provider_state/providers/product.dart';
 
 class Products with ChangeNotifier {
   List<Product> _products = List.generate(

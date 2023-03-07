@@ -3,7 +3,7 @@ import 'package:flutter_provider_state/providers/all_products.dart';
 import 'package:flutter_provider_state/widgets/product_item.dart';
 import 'package:provider/provider.dart';
 
-import '../models/product.dart';
+import '../providers/product.dart';
 
 class Product_Grid extends StatelessWidget {
   @override
@@ -14,10 +14,10 @@ class Product_Grid extends StatelessWidget {
     return GridView.builder(
       padding: const EdgeInsets.all(10.0),
       itemCount: allProduct.length,
-      itemBuilder: (ctx, i) => ProductItem(
-        allProduct[i].id!,
-        allProduct[i].title!,
-        allProduct[i].imageUrl!,
+      itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+        value: allProduct[i], // kalau bentuknya value langsung me return value
+        // create: (context) => allProduct[i], // ini kurang efisien karena returnnya bukan class, karena menggunakan create itu membuat render baru
+        child: ProductItem(),
       ),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
