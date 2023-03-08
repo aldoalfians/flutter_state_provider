@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_provider_state/providers/cart.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_provider_state/providers/product.dart';
 import '../screens/product_detail_screen.dart';
@@ -9,6 +10,7 @@ class ProductItem extends StatelessWidget {
     // listen false agar tidak membuang memory
     // Gunakan consumer apabila ingin melakukan perubahan di bagian widget tertentu
     final productData = Provider.of<Product>(context, listen: false);
+    final cart = Provider.of<Cart>(context, listen: false);
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
@@ -45,7 +47,18 @@ class ProductItem extends StatelessWidget {
             icon: Icon(
               Icons.shopping_cart,
             ),
-            onPressed: () {},
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("Add To Cart"),
+                  duration: Duration(
+                    milliseconds: 500,
+                  ),
+                ),
+              );
+              cart.addCart(productData.id as String,
+                  productData.title as String, productData.price as double);
+            },
             color: Theme.of(context).accentColor,
           ),
         ),
